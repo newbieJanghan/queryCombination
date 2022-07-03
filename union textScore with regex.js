@@ -1,4 +1,4 @@
-async findBySearch(filter {
+async findBySearch(filter) {
   const result = await Product.aggregate([
       { $match: { $text: { $search: filter } } },
       { $addFields: { score: { $meta: 'textScore' } } },
@@ -18,7 +18,7 @@ async findBySearch(filter {
       { $sort: { score: -1 } },
       { $group: {
           _id: '$_id',
-          fiekd1: { $first: '$field1' },
+          field1: { $first: '$field1' },
           ...,
           score: { $sum: '$score' },
       }},
